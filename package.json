@@ -1,0 +1,23 @@
+{
+  "name": "framework-8652",
+  "version": "1.0.2",
+  "description": "React-like framework",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artif1c1al/framework.git"
+  },
+  "keywords": [
+    "Framework",
+    "React"
+  ],
+  "author": "Artem Zhuravlenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/artif1c1al/framework/issues"
+  },
+  "homepage": "https://github.com/artif1c1al/framework#readme"
+}
