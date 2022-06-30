@@ -1,5 +1,4 @@
-/* eslint-disable */
-function createElement(type, props, ...children) {
+const createElement = (type, props, ...children) => {
   return {
     type,
     props: {
@@ -9,7 +8,7 @@ function createElement(type, props, ...children) {
   };
 }
 
-function createTextElement(text) {
+const createTextElement = (text) => {
   return {
     type: 'TEXT_ELEMENT',
     props: {
@@ -19,8 +18,8 @@ function createTextElement(text) {
   };
 }
 
-function createDom(fiber) {
-  const dom = fiber.type == 'TEXT_ELEMENT'
+const createDom = (fiber) => {
+  const dom = fiber.type === 'TEXT_ELEMENT'
     ? document.createTextNode('')
     : document.createElement(fiber.type);
 
@@ -33,7 +32,8 @@ const isEvent = (key) => key.startsWith('on');
 const isProperty = (key) => key !== 'children' && !isEvent(key);
 const isNew = (prev, next) => (key) => prev[key] !== next[key];
 const isGone = (prev, next) => (key) => !(key in next);
-function updateDom(dom, prevProps, nextProps) {
+
+const updateDom = (dom, prevProps, nextProps) => {
   // Remove old or changed event listeners
   Object.keys(prevProps)
     .filter(isEvent)
@@ -69,14 +69,14 @@ function updateDom(dom, prevProps, nextProps) {
     });
 }
 
-function commitRoot() {
+const commitRoot = () => {
   deletions.forEach(commitWork);
   commitWork(wipRoot.child);
   currentRoot = wipRoot;
   wipRoot = null;
 }
 
-function commitWork(fiber) {
+const commitWork = (fiber) => {
   if (!fiber) {
     return;
   }
@@ -99,7 +99,7 @@ function commitWork(fiber) {
   commitWork(fiber.sibling);
 }
 
-function commitDeletion(fiber, domParent) {
+const commitDeletion = (fiber, domParent) => {
   if (fiber.dom) {
     domParent.removeChild(fiber.dom);
   } else {
@@ -107,7 +107,7 @@ function commitDeletion(fiber, domParent) {
   }
 }
 
-function render(element, container) {
+const render = (element, container) => {
   wipRoot = {
     dom: container,
     props: {
@@ -124,7 +124,7 @@ let currentRoot = null;
 let wipRoot = null;
 let deletions = null;
 
-function workLoop(deadline) {
+const workLoop = (deadline) => {
   let shouldYield = false;
   while (nextUnitOfWork && !shouldYield) {
     nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
@@ -140,7 +140,7 @@ function workLoop(deadline) {
 
 requestIdleCallback(workLoop);
 
-function performUnitOfWork(fiber) {
+const performUnitOfWork = (fiber) => {
   const isFunctionComponent = fiber.type instanceof Function;
   if (isFunctionComponent) {
     updateFunctionComponent(fiber);
@@ -162,7 +162,7 @@ function performUnitOfWork(fiber) {
 let wipFiber = null;
 let hookIndex = null;
 
-function updateFunctionComponent(fiber) {
+const updateFunctionComponent = (fiber) => {
   wipFiber = fiber;
   hookIndex = 0;
   wipFiber.hooks = [];
@@ -170,7 +170,7 @@ function updateFunctionComponent(fiber) {
   reconcileChildren(fiber, children);
 }
 
-export function useState(initial) {
+export const useState = (initial) => {
   const oldHook = wipFiber.alternate
         && wipFiber.alternate.hooks
         && wipFiber.alternate.hooks[hookIndex];
@@ -200,14 +200,14 @@ export function useState(initial) {
   return [hook.state, setState];
 }
 
-function updateHostComponent(fiber) {
+const updateHostComponent = (fiber) => {
   if (!fiber.dom) {
     fiber.dom = createDom(fiber);
   }
   reconcileChildren(fiber, fiber.props.children);
 }
 
-function reconcileChildren(wipFiber, elements) {
+const reconcileChildren = (wipFiber, elements) => {
   let index = 0;
   let oldFiber = wipFiber.alternate && wipFiber.alternate.child;
   let prevSibling = null;
@@ -216,7 +216,7 @@ function reconcileChildren(wipFiber, elements) {
     const element = elements[index];
     let newFiber = null;
 
-    const sameType = oldFiber && element && element.type == oldFiber.type;
+    const sameType = oldFiber && element && element.type === oldFiber.type;
 
     if (sameType) {
       newFiber = {
