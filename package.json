@@ -2,7 +2,7 @@
   "name": "framework-8652",
   "version": "1.0.3",
   "description": "React-like framework",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/artif1c1al/framework/issues"
   },
-  "homepage": "https://github.com/artif1c1al/framework#readme"
+  "homepage": "https://github.com/artif1c1al/framework#readme",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
 }

@@ -1,4 +1,4 @@
-const createElement = (type, props, ...children) => {
+const createElement = (type: string, props, ...children) => {
   return {
     type,
     props: {
